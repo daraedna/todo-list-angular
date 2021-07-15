@@ -1,0 +1,27 @@
+.form-todo {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.container-inputs {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.form-control {
+ width: 250px;
+}
+
+.form-control.data {
+    width: 200px;
+}
+
+.btn-add {
+    width: 120px;
+    margin-top: 8px;
+}

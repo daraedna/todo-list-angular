@@ -1,0 +1,124 @@
+<div class="container ">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="todolist not-done">
+          <h1 class="text-center">To-do list</h1>
+          <form class="form form-todo">
+            <h5>Adicionar Tarefa</h5>
+            <div class="container-inputs">
+              <input
+                  type="text"
+                  class="form-control add-todo"
+                  name="item"
+                  placeholder="Tarefa"
+                  [(ngModel)]="itemToAdd"
+              >
+              <select name="option" aria-placeholder="Selecione" class="form-control mx-lg-2 my-2 my-lg-0" id="selectAction" (change)="handleCategory(t.value)" #t>
+                <option value="" disabled selected>Selecione uma categoria</option>
+                <option *ngFor="let category of categories" [value]="category.value">
+                  {{ category.label }}
+                </option>
+              </select>
+              <input
+                  type="date"
+                  class="form-control data"
+                  name="item"
+                  [(ngModel)]="dateToAdd"
+              >
+            </div>
+            <button
+              id="checkAll"
+              class="btn btn-success mt-4 btn-add"
+              (click)='addToList()'
+              >
+              Add
+            </button>
+          </form>
+          <hr>
+          <h5 *ngIf="todoList.length !== 0">Tarefas</h5>
+          <ul id="sortable" class="list-unstyled"  *ngIf="todoList.length !== 0">
+            <table class="table"  *ngIf="todoList.length !== 0">
+              <tr>
+                <th>#</th>
+                <th>Tarefa</th>
+                <th>Categoria</th>
+                <th>Data</th>
+                <th> </th>
+              </tr>
+              <tr class="ui-state-default" *ngFor="let item of todoList; let i = index">
+                  <td>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" value="" (click)="doItem(i)" style="cursor: pointer;" />
+                      </label>
+                    </div>
+                  </td>
+                  <td>
+                    <span>
+                      {{item.item}}
+                    </span>
+                  </td>
+                  <td>
+                      <span>
+                        {{item.category}}
+                      </span>
+                  </td>
+                  <td>
+                      <span>
+                        {{item.date | date:'dd/MM/YYYY' }}
+                      </span>
+                  </td>
+                  <td style="cursor: pointer;" (click)="onDelete(item)">
+                    <i class="bi bi-trash" style="color:red"></i>
+                  </td>
+                </tr>
+            </table>
+          </ul>
+
+          <ng-template #deleteModal>
+            <div class="modal-body text-center">
+              <p>Deseja realmente apagar?</p>
+              <button type="button" class="btn btn-danger" (click)="onConfirmDelete()">Sim</button>
+              <button type="button" class="btn btn-default" (click)="onDecliveDelete()">Não</button>
+            </div>
+          </ng-template>
+
+          <h5 *ngIf="doneList.length !== 0">Tarefas concluídas</h5>
+          <ul id="sortable" class="list-unstyled" *ngIf="doneList.length !== 0">
+            <table class="table" *ngIf="doneList.length !== 0">
+              <tr>
+                <th>#</th>
+                <th>Tarefa</th>
+                <th>Categoria</th>
+                <th>Data</th>
+              </tr>
+              <tr class="ui-state-default" *ngFor="let item of doneList; let j = index">
+                  <td>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" value="" checked (click)="removeItem(j)" style="cursor: pointer;"/>
+                      </label>
+                    </div>
+                  </td>
+                  <td>
+                      <span style="text-decoration:line-through;">
+                        {{item.item}}
+                      </span>
+                  </td>
+                  <td>
+                      <span style="text-decoration:line-through;">
+                        {{item.category}}
+                      </span>
+                  </td>
+                  <td>
+                      <span style="text-decoration:line-through;">
+                        {{item.date | date:'dd/MM/YYYY' }}
+                      </span>
+                  </td>
+                </tr>
+            </table>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
